@@ -1,9 +1,10 @@
 import React from 'react';
+import ShoppingCart from '../components/ShoppingCart';
 
 const ShoppingCartPage: React.FC = () => (
   <div>
     <h1>Shopping Cart Page</h1>
-    {/* Add ShoppingCart component here later */}
+    <ShoppingCart />
   </div>
 );
 
