@@ -6,12 +6,12 @@ import ProductsPage from './pages/ProductsPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import TikTokLogo from './assets/TikTok.png';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const App: React.FC = () => (
   <Router>
-    <Layout>
-      <Header style={{ display: 'flex', alignItems: 'center', padding: '0 0' }}>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Header style={{ display: 'flex', alignItems: 'center', backgroundColor: '#001529', padding: '0' }}>
         <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
           <img src={TikTokLogo} alt="TikTok Logo" style={{ width: '80px', height: 'auto' }} />
         </a>
@@ -24,8 +24,8 @@ const App: React.FC = () => (
           </Menu.Item>
         </Menu>
       </Header>
-      <Content style={{ padding: '0 80px', backgroundColor: '#f0f2f5' }}>
-        <div className="site-layout-content">
+      <Content style={{ padding: '0 80px', backgroundColor: '#f0f2f5', flex: 1 }}>
+        <div className="site-layout-content" style={{ height: '100%' }}>
           <Routes>
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/shopping-cart" element={<ShoppingCartPage />} />
@@ -33,6 +33,7 @@ const App: React.FC = () => (
           </Routes>
         </div>
       </Content>
+      <Footer style={{ textAlign: 'center' }}>抖音电商 ©2024 Created by TikTok</Footer>
     </Layout>
   </Router>
 );
