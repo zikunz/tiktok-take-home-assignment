@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { AppstoreOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import ProductsPage from './components/ProductsPage';
-import ShoppingCartPage from './components/ShoppingCartPage';
+import ProductsPage from './pages/ProductsPage';
+import ShoppingCartPage from './pages/ShoppingCartPage';
 
 const { Header, Content } = Layout;
 

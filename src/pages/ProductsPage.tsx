@@ -1,6 +1,6 @@
 import React from 'react';
-import CategoryTabs from './CategoryTabs';
-import ProductList from './ProductList';
+import CategoryTabs from '../components/CategoryTabs';
+import ProductList from '../components/ProductList';
 
 const ProductsPage: React.FC = () => (
   <div>
