@@ -3,11 +3,13 @@ import { useAtom } from 'jotai';
 import { cartAtom } from '../context/store';
 import { Table, Button, InputNumber, Typography, notification } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useIntl, FormattedMessage } from 'react-intl';
 
 const { Text } = Typography;
 
 const ShoppingCart: React.FC = () => {
   const [cart, setCart] = useAtom(cartAtom);
+  const intl = useIntl();
 
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     setCart(cart =>
@@ -28,15 +30,15 @@ const ShoppingCart: React.FC = () => {
   const handleConfirm = () => {
     if (cart.length === 0) {
       notification.warning({
-        message: '购物车是空的',
-        description: '去挑一些你喜欢的商品吧。',
+        message: intl.formatMessage({ id: 'emptyCartMessage' }),
+        description: intl.formatMessage({ id: 'emptyCartDescription' }),
         placement: 'topRight',
       });
     } else {
       setCart([]);
       notification.success({
-        message: '下单成功',
-        description: '感谢您选择抖音电商！',
+        message: intl.formatMessage({ id: 'orderSuccessMessage' }),
+        description: intl.formatMessage({ id: 'orderSuccessDescription' }),
         placement: 'topRight',
       });
     }
@@ -44,18 +46,18 @@ const ShoppingCart: React.FC = () => {
 
   const columns = [
     {
-      title: '产品名称',
+      title: <FormattedMessage id="name" />,
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: '产品单价',
+      title: <FormattedMessage id="price" />,
       dataIndex: 'price',
       key: 'price',
       render: (price: number) => `¥${price}`,
     },
     {
-      title: '产品数量',
+      title: <FormattedMessage id="quantity" />,
       dataIndex: 'quantity',
       key: 'quantity',
       render: (text: any, record: any) => (
@@ -67,7 +69,7 @@ const ShoppingCart: React.FC = () => {
       ),
     },
     {
-      title: '操作',
+      title: <FormattedMessage id="action" />,
       key: 'action',
       render: (text: any, record: any) => (
         <Button
@@ -82,11 +84,19 @@ const ShoppingCart: React.FC = () => {
 
   return (
     <div>
-      <Table dataSource={cart} columns={columns} rowKey="product_id" pagination={false} />
+      <Table
+        dataSource={cart}
+        columns={columns}
+        rowKey="product_id"
+        pagination={false}
+        locale={{ emptyText: <FormattedMessage id="noData" /> }}
+      />
       <div style={{ marginTop: '20px', textAlign: 'right' }}>
-        <Text strong style={{ marginRight: '20px' }}>总计: ¥{getTotalPrice()}</Text>
+        <Text strong style={{ marginRight: '20px' }}>
+          <FormattedMessage id="total" />: ¥{getTotalPrice()}
+        </Text>
         <Button type="primary" onClick={handleConfirm}>
-          确认
+          <FormattedMessage id="confirm" />
         </Button>
       </div>
     </div>

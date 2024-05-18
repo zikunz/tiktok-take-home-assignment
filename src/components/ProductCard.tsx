@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Card } from 'antd';
 import { useAtom } from 'jotai';
 import { cartAtom } from '../context/store';
+import { FormattedMessage } from 'react-intl';
 
 type ProductProps = {
   product: {
@@ -31,8 +32,8 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
   };
 
   return (
-    <Card title={product.name} extra={<Button onClick={addToCart}>Add</Button>}>
-      <p>Price: {product.price}</p>
+    <Card title={product.name} extra={<Button onClick={addToCart}><FormattedMessage id="add" defaultMessage="Add" /></Button>}>
+      <p><FormattedMessage id="price" defaultMessage="Price" />: {product.price}</p>
     </Card>
   );
 };

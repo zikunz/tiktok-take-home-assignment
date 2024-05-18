@@ -1,10 +1,14 @@
 import React from 'react';
-import CategoryTabs from '../components/CategoryTabs';
 import ProductList from '../components/ProductList';
+import CategoryTabs from '../components/CategoryTabs';
+import { Typography } from 'antd';
+import { FormattedMessage } from 'react-intl';
+
+const { Title } = Typography;
 
 const ProductsPage: React.FC = () => (
   <div>
-    <h1>Products Page</h1>
+    <Title><FormattedMessage id="productsPage" /></Title>
     <CategoryTabs />
     <ProductList />
   </div>
