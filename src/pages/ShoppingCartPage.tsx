@@ -1,9 +1,13 @@
 import React from 'react';
 import ShoppingCart from '../components/ShoppingCart';
+import { Typography } from 'antd';
+import { FormattedMessage } from 'react-intl';
+
+const { Title } = Typography;
 
 const ShoppingCartPage: React.FC = () => (
   <div>
-    <h1>Shopping Cart Page</h1>
+    <Title><FormattedMessage id="shoppingCartPage" /></Title>
     <ShoppingCart />
   </div>
 );
