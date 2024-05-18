@@ -1,4 +1,5 @@
 import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
 interface Category {
   category_id: string;
@@ -37,5 +38,6 @@ export const productsAtom = atom<Product[]>([
   { product_id: 'p12', name: '农夫山泉', price: 2, category: 'c3' },
 ]);
 
-export const cartAtom = atom<CartItem[]>([]);
 export const selectedCategoryAtom = atom<string>('c1');
+
+export const cartAtom = atomWithStorage<CartItem[]>('cart', []);
