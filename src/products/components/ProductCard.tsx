@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'antd';
 import { useAtom } from 'jotai';
-import { cartAtom } from '../context/store';
+import { cartAtom } from '../../context/store';
 import { FormattedMessage } from 'react-intl';
 
 type ProductProps = {

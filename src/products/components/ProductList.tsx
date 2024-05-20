@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAtom } from 'jotai';
-import { productsAtom, selectedCategoryAtom } from '../context/store';
+import { productsAtom, selectedCategoryAtom } from '../../context/store';
 import ProductCard from './ProductCard';
 
 const ProductList: React.FC = () => {
