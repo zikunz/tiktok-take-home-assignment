@@ -12,15 +12,17 @@ const ShoppingCart: React.FC = () => {
   const intl = useIntl();
 
   const handleQuantityChange = (productId: string, newQuantity: number) => {
-    setCart(cart =>
-      cart.map(item =>
-        item.product_id === productId ? { ...item, quantity: newQuantity } : item
+    setCart((cart) =>
+      cart.map((item) =>
+        item.product_id === productId
+          ? { ...item, quantity: newQuantity }
+          : item
       )
     );
   };
 
   const handleDelete = (productId: string) => {
-    setCart(cart => cart.filter(item => item.product_id !== productId));
+    setCart((cart) => cart.filter((item) => item.product_id !== productId));
   };
 
   const getTotalPrice = () => {
@@ -64,7 +66,9 @@ const ShoppingCart: React.FC = () => {
         <InputNumber
           min={1}
           value={record.quantity}
-          onChange={(value) => handleQuantityChange(record.product_id, value as number)}
+          onChange={(value) =>
+            handleQuantityChange(record.product_id, value as number)
+          }
         />
       ),
     },
