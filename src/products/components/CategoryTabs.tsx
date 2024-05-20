@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import {
-  categoriesAtom,
-  selectedCategoryAtom,
-  cartAtom,
-} from '../../context/store';
-import { Tabs, Badge } from 'antd';
+import { selectedCategoryAtom, cartAtom } from '../../context/store';
+import { Tabs, Badge, notification } from 'antd';
 import styled from 'styled-components';
+import { getCategories } from '../../services/categoryService';
+import { atom } from 'jotai';
+
+const categoriesAtom = atom<any[]>([]); // Define atom here or export it from store
 
 const StyledTabs = styled(Tabs)`
   .ant-tabs-nav::before {
@@ -28,9 +28,28 @@ const StyledTabs = styled(Tabs)`
 `;
 
 const CategoryTabs: React.FC = () => {
-  const [categories] = useAtom(categoriesAtom);
+  const [categories, setCategories] = useAtom(categoriesAtom);
   const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
   const [cart] = useAtom(cartAtom);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getCategories();
+        setCategories(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          notification.error({
+            message: 'Error',
+            description: error.message,
+            placement: 'topRight',
+          });
+        }
+      }
+    };
+
+    fetchCategories();
+  }, [setCategories]);
 
   const getCountForCategory = (categoryId: string) => {
     return cart.reduce(
