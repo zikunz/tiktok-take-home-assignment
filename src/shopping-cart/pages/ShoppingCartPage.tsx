@@ -7,7 +7,9 @@ const { Title } = Typography;
 
 const ShoppingCartPage: React.FC = () => (
   <div>
-    <Title><FormattedMessage id="shoppingCartPage" /></Title>
+    <Title>
+      <FormattedMessage id="shoppingCartPage" />
+    </Title>
     <ShoppingCart />
   </div>
 );

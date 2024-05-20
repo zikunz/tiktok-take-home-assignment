@@ -7,11 +7,13 @@ const ProductList: React.FC = () => {
   const [products] = useAtom(productsAtom);
   const [selectedCategory] = useAtom(selectedCategoryAtom);
 
-  const filteredProducts = products.filter(product => product.category === selectedCategory);
+  const filteredProducts = products.filter(
+    (product) => product.category === selectedCategory
+  );
 
   return (
     <div>
-      {filteredProducts.map(product => (
+      {filteredProducts.map((product) => (
         <ProductCard key={product.product_id} product={product} />
       ))}
     </div>

@@ -1,6 +1,10 @@
 import React from 'react';
 import { useAtom } from 'jotai';
-import { categoriesAtom, selectedCategoryAtom, cartAtom } from '../../context/store';
+import {
+  categoriesAtom,
+  selectedCategoryAtom,
+  cartAtom,
+} from '../../context/store';
 import { Tabs, Badge } from 'antd';
 import styled from 'styled-components';
 
@@ -29,7 +33,11 @@ const CategoryTabs: React.FC = () => {
   const [cart] = useAtom(cartAtom);
 
   const getCountForCategory = (categoryId: string) => {
-    return cart.reduce((count, item) => item.category === categoryId ? count + item.quantity : count, 0);
+    return cart.reduce(
+      (count, item) =>
+        item.category === categoryId ? count + item.quantity : count,
+      0
+    );
   };
 
   const tabStyle: React.CSSProperties = {
@@ -50,11 +58,20 @@ const CategoryTabs: React.FC = () => {
     padding: '0 10px',
   };
 
-  const items = categories.map(category => ({
+  const items = categories.map((category) => ({
     key: category.category_id,
     label: (
-      <div style={selectedCategory === category.category_id ? tabStyle : { position: 'relative' }}>
-        <Badge count={getCountForCategory(category.category_id)} style={badgeStyle}>
+      <div
+        style={
+          selectedCategory === category.category_id
+            ? tabStyle
+            : { position: 'relative' }
+        }
+      >
+        <Badge
+          count={getCountForCategory(category.category_id)}
+          style={badgeStyle}
+        >
           <span style={categoryNameStyle}>{category.name}</span>
         </Badge>
       </div>

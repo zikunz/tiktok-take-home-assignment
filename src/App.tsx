@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
 import { Layout, Menu, Button, Space, ConfigProvider } from 'antd';
 import { AppstoreOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import ProductsPage from './products/pages/ProductsPage';
@@ -12,7 +20,10 @@ import messages from './locales';
 
 const { Header, Content, Footer } = Layout;
 
-const CustomHeader: React.FC<{ locale: string; changeLocale: (locale: string) => void }> = ({ locale, changeLocale }) => {
+const CustomHeader: React.FC<{
+  locale: string;
+  changeLocale: (locale: string) => void;
+}> = ({ locale, changeLocale }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,44 +39,94 @@ const CustomHeader: React.FC<{ locale: string; changeLocale: (locale: string) =>
     {
       key: `/${locale}/products`,
       icon: <AppstoreOutlined />,
-      label: <Link to={`/${locale}/products`}><FormattedMessage id="products" /></Link>
+      label: (
+        <Link to={`/${locale}/products`}>
+          <FormattedMessage id="products" />
+        </Link>
+      ),
     },
     {
       key: `/${locale}/shopping-cart`,
       icon: <ShoppingCartOutlined />,
-      label: <Link to={`/${locale}/shopping-cart`}><FormattedMessage id="shoppingCart" /></Link>
-    }
+      label: (
+        <Link to={`/${locale}/shopping-cart`}>
+          <FormattedMessage id="shoppingCart" />
+        </Link>
+      ),
+    },
   ];
 
   return (
-    <Header style={{ display: 'flex', alignItems: 'center', backgroundColor: '#001529', padding: '0' }}>
-      <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
-        <img src={TikTokLogo} alt="TikTok Logo" style={{ width: '80px', height: 'auto' }} />
+    <Header
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '#001529',
+        padding: '0',
+      }}
+    >
+      <a
+        href="https://www.tiktok.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ display: 'flex', alignItems: 'center' }}
+      >
+        <img
+          src={TikTokLogo}
+          alt="TikTok Logo"
+          style={{ width: '80px', height: 'auto' }}
+        />
       </a>
-      <Menu theme="dark" mode="horizontal" selectedKeys={[`/${locale}/${selectedKey}`]} style={{ flex: 1 }} items={menuItems} />
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        selectedKeys={[`/${locale}/${selectedKey}`]}
+        style={{ flex: 1 }}
+        items={menuItems}
+      />
       <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
-        <Button type={locale === 'en' ? 'primary' : 'default'} onClick={() => handleLocaleChange('en')}>English</Button>
-        <Button type={locale === 'zh' ? 'primary' : 'default'} onClick={() => handleLocaleChange('zh')}>中文</Button>
+        <Button
+          type={locale === 'en' ? 'primary' : 'default'}
+          onClick={() => handleLocaleChange('en')}
+        >
+          English
+        </Button>
+        <Button
+          type={locale === 'zh' ? 'primary' : 'default'}
+          onClick={() => handleLocaleChange('zh')}
+        >
+          中文
+        </Button>
       </Space>
     </Header>
   );
 };
 
-const AppContent: React.FC<{ locale: string; changeLocale: (locale: string) => void }> = ({ locale, changeLocale }) => {
+const AppContent: React.FC<{
+  locale: string;
+  changeLocale: (locale: string) => void;
+}> = ({ locale, changeLocale }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <CustomHeader locale={locale} changeLocale={changeLocale} />
-      <Content style={{ padding: '0 80px', backgroundColor: '#f0f2f5', flex: 1 }}>
+      <Content
+        style={{ padding: '0 80px', backgroundColor: '#f0f2f5', flex: 1 }}
+      >
         <div className="site-layout-content" style={{ height: '100%' }}>
           <Routes>
             <Route path="/:locale/products" element={<ProductsPage />} />
-            <Route path="/:locale/shopping-cart" element={<ShoppingCartPage />} />
+            <Route
+              path="/:locale/shopping-cart"
+              element={<ShoppingCartPage />}
+            />
             <Route path="/" element={<Navigate to="/en/products" />} />
             <Route path="*" element={<Navigate to="/en/products" />} />
           </Routes>
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>抖音电商 ©2024 Created by TikTok</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        抖音电商 ©2024 Created by TikTok
+      </Footer>
     </Layout>
   );
 };

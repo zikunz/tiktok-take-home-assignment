@@ -8,7 +8,9 @@ const { Title } = Typography;
 
 const ProductsPage: React.FC = () => (
   <div>
-    <Title><FormattedMessage id="productsPage" /></Title>
+    <Title>
+      <FormattedMessage id="productsPage" />
+    </Title>
     <CategoryTabs />
     <ProductList />
   </div>

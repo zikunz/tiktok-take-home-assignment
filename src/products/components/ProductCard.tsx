@@ -10,17 +10,19 @@ type ProductProps = {
     name: string;
     price: number;
     category: string;
-  }
+  };
 };
 
 const ProductCard: React.FC<ProductProps> = ({ product }) => {
   const [, setCart] = useAtom(cartAtom);
 
   const addToCart = () => {
-    setCart(cart => {
-      const itemInCart = cart.find(item => item.product_id === product.product_id);
+    setCart((cart) => {
+      const itemInCart = cart.find(
+        (item) => item.product_id === product.product_id
+      );
       if (itemInCart) {
-        return cart.map(item =>
+        return cart.map((item) =>
           item.product_id === product.product_id
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -32,8 +34,17 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
   };
 
   return (
-    <Card title={product.name} extra={<Button onClick={addToCart}><FormattedMessage id="add" defaultMessage="Add" /></Button>}>
-      <p><FormattedMessage id="price" defaultMessage="Price" />: {product.price}</p>
+    <Card
+      title={product.name}
+      extra={
+        <Button onClick={addToCart}>
+          <FormattedMessage id="add" defaultMessage="Add" />
+        </Button>
+      }
+    >
+      <p>
+        <FormattedMessage id="price" defaultMessage="Price" />: {product.price}
+      </p>
     </Card>
   );
 };
