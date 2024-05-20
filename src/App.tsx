@@ -24,19 +24,25 @@ const CustomHeader: React.FC<{ locale: string; changeLocale: (locale: string) =>
 
   const selectedKey = location.pathname.split('/').slice(2).join('/');
 
+  const menuItems = [
+    {
+      key: `/${locale}/products`,
+      icon: <AppstoreOutlined />,
+      label: <Link to={`/${locale}/products`}><FormattedMessage id="products" /></Link>
+    },
+    {
+      key: `/${locale}/shopping-cart`,
+      icon: <ShoppingCartOutlined />,
+      label: <Link to={`/${locale}/shopping-cart`}><FormattedMessage id="shoppingCart" /></Link>
+    }
+  ];
+
   return (
     <Header style={{ display: 'flex', alignItems: 'center', backgroundColor: '#001529', padding: '0' }}>
       <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center' }}>
         <img src={TikTokLogo} alt="TikTok Logo" style={{ width: '80px', height: 'auto' }} />
       </a>
-      <Menu theme="dark" mode="horizontal" selectedKeys={[`/${locale}/${selectedKey}`]} style={{ flex: 1 }}>
-        <Menu.Item key={`/${locale}/products`} icon={<AppstoreOutlined />}>
-          <Link to={`/${locale}/products`}><FormattedMessage id="products" /></Link>
-        </Menu.Item>
-        <Menu.Item key={`/${locale}/shopping-cart`} icon={<ShoppingCartOutlined />}>
-          <Link to={`/${locale}/shopping-cart`}><FormattedMessage id="shoppingCart" /></Link>
-        </Menu.Item>
-      </Menu>
+      <Menu theme="dark" mode="horizontal" selectedKeys={[`/${locale}/${selectedKey}`]} style={{ flex: 1 }} items={menuItems} />
       <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
         <Button type={locale === 'en' ? 'primary' : 'default'} onClick={() => handleLocaleChange('en')}>English</Button>
         <Button type={locale === 'zh' ? 'primary' : 'default'} onClick={() => handleLocaleChange('zh')}>中文</Button>
@@ -64,14 +70,6 @@ const AppContent: React.FC<{ locale: string; changeLocale: (locale: string) => v
   );
 };
 
-const App: React.FC = () => {
-  return (
-    <Router>
-      <AppWrapper />
-    </Router>
-  );
-};
-
 const AppWrapper: React.FC = () => {
   const location = useLocation();
   const initialLocale = location.pathname.split('/')[1] || 'en';
@@ -89,6 +87,14 @@ const AppWrapper: React.FC = () => {
         <AppContent locale={locale} changeLocale={changeLocale} />
       </ConfigProvider>
     </IntlProvider>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AppWrapper />
+    </Router>
   );
 };
 

@@ -50,26 +50,24 @@ const CategoryTabs: React.FC = () => {
     padding: '0 10px',
   };
 
+  const items = categories.map(category => ({
+    key: category.category_id,
+    label: (
+      <div style={selectedCategory === category.category_id ? tabStyle : { position: 'relative' }}>
+        <Badge count={getCountForCategory(category.category_id)} style={badgeStyle}>
+          <span style={categoryNameStyle}>{category.name}</span>
+        </Badge>
+      </div>
+    ),
+  }));
+
   return (
     <StyledTabs
       activeKey={selectedCategory}
       onChange={setSelectedCategory}
       tabBarStyle={{ display: 'flex', justifyContent: 'center' }}
-      tabBarExtraContent={null}
-    >
-      {categories.map(category => (
-        <Tabs.TabPane
-          tab={
-            <div style={selectedCategory === category.category_id ? tabStyle : { position: 'relative' }}>
-              <Badge count={getCountForCategory(category.category_id)} style={badgeStyle}>
-                <span style={categoryNameStyle}>{category.name}</span>
-              </Badge>
-            </div>
-          }
-          key={category.category_id}
-        />
-      ))}
-    </StyledTabs>
+      items={items}
+    />
   );
 };
 
