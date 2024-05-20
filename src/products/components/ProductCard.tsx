@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, Card } from 'antd';
+import { Button, Card, notification } from 'antd';
 import { useAtom } from 'jotai';
 import { cartAtom } from '../../context/store';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+const MAX_QUANTITY = 100000;
 
 type ProductProps = {
   product: {
@@ -15,6 +17,7 @@ type ProductProps = {
 
 const ProductCard: React.FC<ProductProps> = ({ product }) => {
   const [, setCart] = useAtom(cartAtom);
+  const intl = useIntl();
 
   const addToCart = () => {
     setCart((cart) => {
@@ -22,9 +25,17 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
         (item) => item.product_id === product.product_id
       );
       if (itemInCart) {
+        if (itemInCart.quantity >= MAX_QUANTITY) {
+          notification.error({
+            message: intl.formatMessage({ id: 'error' }),
+            description: intl.formatMessage({ id: 'maxQuantityError' }),
+            placement: 'topRight',
+          });
+          return cart;
+        }
         return cart.map((item) =>
           item.product_id === product.product_id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: Math.min(item.quantity + 1, MAX_QUANTITY) }
             : item
         );
       } else {

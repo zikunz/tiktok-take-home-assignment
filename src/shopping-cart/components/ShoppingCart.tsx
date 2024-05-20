@@ -9,6 +9,8 @@ import { Product } from '../../types';
 
 const { Text } = Typography;
 
+const MAX_QUANTITY = 100000;
+
 const ShoppingCart: React.FC = () => {
   const [cart, setCart] = useAtom(cartAtom);
   const [products, setProducts] = useState<Product[]>([]);
@@ -31,13 +33,28 @@ const ShoppingCart: React.FC = () => {
   }, []);
 
   const handleQuantityChange = (productId: string, newQuantity: number) => {
-    setCart((cart) =>
-      cart.map((item) =>
-        item.product_id === productId
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
+    if (newQuantity > MAX_QUANTITY) {
+      notification.error({
+        message: intl.formatMessage({ id: 'error' }),
+        description: intl.formatMessage({ id: 'maxQuantityExceeded' }),
+        placement: 'topRight',
+      });
+      setCart((cart) =>
+        cart.map((item) =>
+          item.product_id === productId
+            ? { ...item, quantity: MAX_QUANTITY }
+            : item
+        )
+      );
+    } else {
+      setCart((cart) =>
+        cart.map((item) =>
+          item.product_id === productId
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
+      );
+    }
   };
 
   const handleDelete = (productId: string) => {
@@ -98,6 +115,7 @@ const ShoppingCart: React.FC = () => {
       render: (quantity: number, record: { product_id: string }) => (
         <InputNumber
           min={1}
+          max={Number.MAX_SAFE_INTEGER}
           value={quantity}
           onChange={(value) =>
             handleQuantityChange(record.product_id, value as number)

@@ -17,6 +17,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import enUS from 'antd/es/locale/en_US';
 import zhCN from 'antd/es/locale/zh_CN';
 import messages from './locales';
+import ErrorBoundary from './error-handling/ErrorBoundary';
 
 const { Header, Content, Footer } = Layout;
 
@@ -154,7 +155,9 @@ const AppWrapper: React.FC = () => {
 const App: React.FC = () => {
   return (
     <Router>
-      <AppWrapper />
+      <ErrorBoundary>
+        <AppWrapper />
+      </ErrorBoundary>
     </Router>
   );
 };
