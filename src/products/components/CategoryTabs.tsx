@@ -52,8 +52,10 @@ const CategoryTabs: React.FC = () => {
 
   const getCountForCategory = (categoryId: string) => {
     return cart.reduce((count, item) => {
-      const product = products.find(p => p.product_id === item.product_id);
-      return product && product.category === categoryId ? count + item.quantity : count;
+      const product = products.find((p) => p.product_id === item.product_id);
+      return product && product.category === categoryId
+        ? count + item.quantity
+        : count;
     }, 0);
   };
 
