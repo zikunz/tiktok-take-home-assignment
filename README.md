@@ -1,6 +1,6 @@
 # 抖音电子商城
 
-这是一个使用 React 和 Ant Design 构建的抖音电商应用。用户可以浏览产品，将其添加到购物车中并模拟下单。
+这是一个使用 React 构建的抖音电商应用。用户可以浏览产品，将其添加到购物车中并模拟下单。
 
 ## 主要功能
 
@@ -23,7 +23,7 @@
 1. 克隆项目到本地：
     ```bash
     git clone https://github.com/zikunz/tiktok-take-home-assignment.git
-    cd tiktok_take_home_assignment
+    cd tiktok-take-home-assignment
     ```
 
 2. 安装依赖：
