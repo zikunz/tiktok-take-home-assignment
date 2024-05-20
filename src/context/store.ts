@@ -1,14 +1,8 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-interface Product {
+interface CartItem {
   product_id: string;
-  name: string;
-  price: number;
-  category: string;
-}
-
-interface CartItem extends Product {
   quantity: number;
 }
 

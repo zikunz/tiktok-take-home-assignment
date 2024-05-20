@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
             : item
         );
       } else {
-        return [...cart, { ...product, quantity: 1 }];
+        return [...cart, { product_id: product.product_id, quantity: 1 }];
       }
     });
   };
