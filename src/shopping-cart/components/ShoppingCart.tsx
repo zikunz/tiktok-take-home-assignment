@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { cartAtom } from '../../context/store';
 import { Table, Button, InputNumber, Typography, notification } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useIntl, FormattedMessage } from 'react-intl';
+import { getProducts } from '../../services/productService';
+import { Product } from '../../types';
 
 const { Text } = Typography;
 
 const ShoppingCart: React.FC = () => {
   const [cart, setCart] = useAtom(cartAtom);
+  const [products, setProducts] = useState<Product[]>([]);
   const intl = useIntl();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        notification.error({
+          message: 'Error',
+          description: (error as Error).message,
+          placement: 'topRight',
+        });
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     setCart((cart) =>
@@ -25,8 +44,15 @@ const ShoppingCart: React.FC = () => {
     setCart((cart) => cart.filter((item) => item.product_id !== productId));
   };
 
+  const getProduct = (productId: string) => {
+    return products.find((product) => product.product_id === productId);
+  };
+
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => {
+      const product = getProduct(item.product_id);
+      return product ? total + product.price * item.quantity : total;
+    }, 0);
   };
 
   const handleConfirm = () => {
@@ -49,23 +75,30 @@ const ShoppingCart: React.FC = () => {
   const columns = [
     {
       title: <FormattedMessage id="name" />,
-      dataIndex: 'name',
+      dataIndex: 'product_id',
       key: 'name',
+      render: (productId: string) => {
+        const product = getProduct(productId);
+        return product ? product.name : 'Product not found';
+      },
     },
     {
       title: <FormattedMessage id="price" />,
-      dataIndex: 'price',
+      dataIndex: 'product_id',
       key: 'price',
-      render: (price: number) => `¥${price}`,
+      render: (productId: string) => {
+        const product = getProduct(productId);
+        return product ? `¥${product.price}` : 'N/A';
+      },
     },
     {
       title: <FormattedMessage id="quantity" />,
       dataIndex: 'quantity',
       key: 'quantity',
-      render: (text: any, record: any) => (
+      render: (quantity: number, record: { product_id: string }) => (
         <InputNumber
           min={1}
-          value={record.quantity}
+          value={quantity}
           onChange={(value) =>
             handleQuantityChange(record.product_id, value as number)
           }
@@ -75,7 +108,7 @@ const ShoppingCart: React.FC = () => {
     {
       title: <FormattedMessage id="action" />,
       key: 'action',
-      render: (text: any, record: any) => (
+      render: (text: any, record: { product_id: string }) => (
         <Button
           type="primary"
           danger

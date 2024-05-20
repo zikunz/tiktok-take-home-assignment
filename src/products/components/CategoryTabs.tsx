@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { selectedCategoryAtom, cartAtom } from '../../context/store';
 import { Tabs, Badge, notification } from 'antd';
 import styled from 'styled-components';
 import { getCategories } from '../../services/categoryService';
-import { atom } from 'jotai';
-
-const categoriesAtom = atom<any[]>([]); // Define atom here or export it from store
+import { getProducts } from '../../services/productService';
+import { Category, Product } from '../../types';
 
 const StyledTabs = styled(Tabs)`
   .ant-tabs-nav::before {
@@ -28,35 +27,34 @@ const StyledTabs = styled(Tabs)`
 `;
 
 const CategoryTabs: React.FC = () => {
-  const [categories, setCategories] = useAtom(categoriesAtom);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
   const [cart] = useAtom(cartAtom);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchCategoriesAndProducts = async () => {
       try {
-        const data = await getCategories();
-        setCategories(data);
+        const categoriesData = await getCategories();
+        const productsData = await getProducts();
+        setCategories(categoriesData);
+        setProducts(productsData);
       } catch (error) {
-        if (error instanceof Error) {
-          notification.error({
-            message: 'Error',
-            description: error.message,
-            placement: 'topRight',
-          });
-        }
+        notification.error({
+          message: 'Error',
+          description: (error as Error).message,
+          placement: 'topRight',
+        });
       }
     };
-
-    fetchCategories();
-  }, [setCategories]);
+    fetchCategoriesAndProducts();
+  }, []);
 
   const getCountForCategory = (categoryId: string) => {
-    return cart.reduce(
-      (count, item) =>
-        item.category === categoryId ? count + item.quantity : count,
-      0
-    );
+    return cart.reduce((count, item) => {
+      const product = products.find(p => p.product_id === item.product_id);
+      return product && product.category === categoryId ? count + item.quantity : count;
+    }, 0);
   };
 
   const tabStyle: React.CSSProperties = {
