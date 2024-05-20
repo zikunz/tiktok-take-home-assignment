@@ -21,7 +21,6 @@
 ## 安装和运行
 
 1. 克隆项目到本地：
-
    ```bash
    git clone https://github.com/zikunz/tiktok-take-home-assignment.git
    cd tiktok-take-home-assignment
@@ -41,5 +40,4 @@
 您可以直接访问项目的在线版本：https://tiktok-take-home-assignment.vercel.app/.
 
 ## 致谢
-
 感谢抖音提供了这次机会，让我参与这个简易购物车的开发。
