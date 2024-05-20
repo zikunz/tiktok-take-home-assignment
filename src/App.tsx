@@ -9,7 +9,12 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { Layout, Menu, Button, Space, ConfigProvider } from 'antd';
-import { AppstoreOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import {
+  AppstoreOutlined,
+  ShoppingCartOutlined,
+  GithubOutlined,
+  FileTextOutlined,
+} from '@ant-design/icons';
 import ProductsPage from './products/pages/ProductsPage';
 import ShoppingCartPage from './shopping-cart/pages/ShoppingCartPage';
 import TikTokLogo from './assets/TikTok.png';
@@ -126,7 +131,25 @@ const AppContent: React.FC<{
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>
-        抖音电商 ©2024 Created by TikTok
+        抖音电子商城 ©2024 Created by TikTok
+        <div style={{ marginTop: '10px' }}>
+          <Space size="large">
+            <a
+              href="https://github.com/zikunz/tiktok-take-home-assignment"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GithubOutlined style={{ fontSize: '24px', color: 'black' }} />
+            </a>
+            <a
+              href="https://enchanted-stilton-322.notion.site/ae11160b277d48fb8de3f172fbe64142"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FileTextOutlined style={{ fontSize: '24px', color: 'black' }} />
+            </a>
+          </Space>
+        </div>
       </Footer>
     </Layout>
   );

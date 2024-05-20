@@ -21,6 +21,7 @@
 ## 安装和运行
 
 1. 克隆项目到本地：
+
    ```bash
    git clone https://github.com/zikunz/tiktok-take-home-assignment.git
    cd tiktok-take-home-assignment
