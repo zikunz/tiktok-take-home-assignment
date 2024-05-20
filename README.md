@@ -40,4 +40,5 @@
 您可以直接访问项目的在线版本：https://tiktok-take-home-assignment.vercel.app/.
 
 ## 致谢
+
 感谢抖音提供了这次机会，让我参与这个简易购物车的开发。
