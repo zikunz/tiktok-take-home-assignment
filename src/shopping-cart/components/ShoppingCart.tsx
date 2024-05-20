@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAtom } from 'jotai';
-import { cartAtom } from '../context/store';
+import { cartAtom } from '../../context/store';
 import { Table, Button, InputNumber, Typography, notification } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useIntl, FormattedMessage } from 'react-intl';

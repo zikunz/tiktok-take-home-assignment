@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAtom } from 'jotai';
-import { categoriesAtom, selectedCategoryAtom, cartAtom } from '../context/store';
+import { categoriesAtom, selectedCategoryAtom, cartAtom } from '../../context/store';
 import { Tabs, Badge } from 'antd';
 import styled from 'styled-components';
 
