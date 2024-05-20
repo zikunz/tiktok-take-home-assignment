@@ -1,6 +1,6 @@
 # 抖音电子商城
 
-这是一个使用 React 构建的抖音电商应用。用户可以浏览产品，将其添加到购物车中并模拟下单。设计文档请访问：https://enchanted-stilton-322.notion.site/ae11160b277d48fb8de3f172fbe64142。
+这是一个使用 React 构建的抖音电商应用。用户可以浏览产品，将其添加到购物车中并模拟下单。您可以访问项目的设计文档：https://enchanted-stilton-322.notion.site/ae11160b277d48fb8de3f172fbe64142.
 
 ## 主要功能
 
